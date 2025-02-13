@@ -19,6 +19,7 @@ modules:
       readiness-health-check-type: http
       readiness-health-check-http-endpoint: /actuator/health/readiness
     properties:
+      REPOSITORY_ID : DEMO-REPO
       SPRING_PROFILES_ACTIVE: cloud,sandbox
       CDS_MULTITENANCY_APPUI_TENANTSEPARATOR: "-"
       JBP_CONFIG_COMPONENTS: "jres: ['com.sap.xs.java.buildpack.jre.SAPMachineJRE']"
@@ -29,6 +30,7 @@ modules:
         - mvn clean package -DskipTests=true
       build-result: target/*-exec.jar
     requires:
+      - name: sdm
       - name: bookshop-mt-service-manager
       - name: bookshop-mt-uaa
       - name: bookshop-mt-saas-registry
@@ -74,6 +76,11 @@ modules:
     parameters:
       memory: 256M
       disk-quota: 512M
+      host: multi-pgnaicm
+      routes:
+        # - route: playground-agri-com-de2-subscriber-${space}-pgcnaim.${default-domain}
+        - route: sdm-dev-consumer-eu12-6uxoiqfk-${default-uri}
+        - route: sdmgoogleworkspace-cpok9mi1-${default-uri}
       keep-existing-routes: true
     properties:
       TENANT_HOST_PATTERN: ^(.*)-${default-uri} # testing only, use custom domain with wildcard for production
@@ -120,6 +127,8 @@ resources:
       config:
         appName: bookshop-mt-${org}-${space} # this is the text on the tile
         xsappname: bookshop-mt-${org}-${space} # this is the value from xsuaa.parameters.config.xsappname
+        displayName: Multitenacy SDM Test
+          description: Multitenancy App test
         appUrls:
           getDependencies: ~{srv-api/srv-url}/mt/v1.0/subscriptions/dependencies
           onSubscription: ~{srv-api/srv-url}/mt/v1.0/subscriptions/tenants/{tenantId}
@@ -137,3 +146,8 @@ resources:
     parameters:
       service: application-logs
       service-plan: lite
+  - name: sdm
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: sdm
+      service-plan: standard
