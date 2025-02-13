@@ -65,6 +65,12 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>com.sap.cds</groupId>
+			<artifactId>sdm</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
 		<!-- CLOUD SDK dependencies -->
 		<dependency>
 			<groupId>com.sap.cloud.sdk.cloudplatform</groupId>
@@ -132,6 +138,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- For SaaSRegistry Dependency -->
+		<dependency>
+		    <groupId>com.sap.cds</groupId>
+		    <artifactId>cds-feature-mt</artifactId>
+		    <version>3.4.0</version>
 		</dependency>
 
 		<!-- DEV TOOLS -->
