@@ -128,7 +128,7 @@ resources:
         appName: bookshop-mt-${org}-${space} # this is the text on the tile
         xsappname: bookshop-mt-${org}-${space} # this is the value from xsuaa.parameters.config.xsappname
         displayName: Multitenacy SDM Test
-          description: Multitenancy App test
+        description: Multitenancy App test
         appUrls:
           getDependencies: ~{srv-api/srv-url}/mt/v1.0/subscriptions/dependencies
           onSubscription: ~{srv-api/srv-url}/mt/v1.0/subscriptions/tenants/{tenantId}
