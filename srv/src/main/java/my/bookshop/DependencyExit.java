@@ -2,17 +2,17 @@ package my.bookshop;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
- 
+
 import org.springframework.stereotype.Component;
- 
+
 import com.sap.cds.services.handler.EventHandler;
 import com.sap.cds.services.handler.annotations.On;
 import com.sap.cds.services.handler.annotations.ServiceName;
 import com.sap.cds.services.mt.*;
 import com.sap.cloud.environment.servicebinding.api.DefaultServiceBindingAccessor;
 import com.sap.cloud.environment.servicebinding.api.ServiceBinding;
- 
- 
+
+
 @Component
 @ServiceName(DeploymentService.DEFAULT_NAME)
 class DependencyExit implements EventHandler {
@@ -25,7 +25,7 @@ class DependencyExit implements EventHandler {
         dependencies.add(SaasRegistryDependency.create(getSDMXsappName()));
         context.setResult(dependencies);
     }
-private String getSDMXsappName() {
+ private String getSDMXsappName() {
     List<ServiceBinding> allServiceBindings =
     DefaultServiceBindingAccessor.getInstance().getServiceBindings();
 // filter for a specific binding
@@ -36,6 +36,6 @@ ServiceBinding sdmBinding =
         .get();
 Map<String, Object> uaaCredentials = sdmBinding.getCredentials();
 Map<String, Object> uaa = (Map<String, Object>) uaaCredentials.get("uaa");
-return uaa.get("xsappname").toString();
+ return uaa.get("xsappname").toString();
     }
 }

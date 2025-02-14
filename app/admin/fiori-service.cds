@@ -43,6 +43,7 @@ annotate AdminService.Books with @(UI : {
             Label  : '{i18n>attachmentsAndLinks}',
             Target : 'attachments/@UI.LineItem'
         }
+
     ],
     FieldGroup #General : {Data : [
         {Value : title},
