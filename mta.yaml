@@ -134,8 +134,8 @@ resources:
           onUnSubscriptionAsync: true
           onUpdateDependenciesAsync: true
           callbackTimeoutMillis: 3600000
-        displayName: Multitenacy SDM Test Rishi
-        description: Multitenancy App test Rishi.
+        displayName: Multitenacy SDM Test-${space}
+        description: Multitenancy App test-${space}.
         category: 'Category'
     requires:
       - name: srv-api
