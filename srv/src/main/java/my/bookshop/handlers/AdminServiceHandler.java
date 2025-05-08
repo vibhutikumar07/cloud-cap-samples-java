@@ -39,10 +39,10 @@ import com.sap.cds.services.handler.annotations.ServiceName;
 import com.sap.cds.services.messages.Messages;
 import com.sap.cds.services.persistence.PersistenceService;
 
+import cds.gen.adminservice.BooksAddToOrderContext;
 import cds.gen.adminservice.AdminService;
 import cds.gen.adminservice.AdminService_;
 import cds.gen.adminservice.Books;
-import cds.gen.adminservice.BooksAddToOrderContext;
 import cds.gen.adminservice.Books_;
 import cds.gen.adminservice.OrderItems;
 import cds.gen.adminservice.OrderItems_;
@@ -94,6 +94,14 @@ class AdminServiceHandler implements EventHandler {
 				order.getItems().forEach(orderItem -> {
 					// validation of the Order creation request
 					Integer quantity = orderItem.getQuantity();
+					if (quantity == null || quantity <= 0) {
+						// errors with localized messages from property files
+						// exceptions abort the request and set an error http status code
+						// messages in contrast allow to collect multiple errors
+						messages.error(MessageKeys.QUANTITY_REQUIRE_MINIMUM)
+								.target("in", ORDERS, o -> o.Items(i -> i.ID().eq(orderItem.getId()).and(i.IsActiveEntity().eq(orderItem.getIsActiveEntity()))).quantity());
+					}
+
 					String bookId = orderItem.getBookId();
 
 					if(quantity == null || quantity <= 0 || bookId == null) {
@@ -196,7 +204,7 @@ class AdminServiceHandler implements EventHandler {
 		if(includeWarnings && quantity <= 0) {
 			// Tip: add additional messages with localized messages from property files
 			// these messages are transported in sap-messages and do not abort the request
-			messages.warn(MessageKeys.QUANTITY_REQUIRE_MINIMUM).target(ORDER_ITEMS, i -> i.quantity());
+			messages.warn(MessageKeys.QUANTITY_REQUIRE_MINIMUM);
 		}
 
 		// get the price of the updated book ID

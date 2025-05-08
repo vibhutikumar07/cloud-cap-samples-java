@@ -6,10 +6,12 @@ spring:
   jmx:
     enabled: true
 cds:
-  errors:
-    default-translations.enabled: true
   odata-v4:
     endpoint.path: "/api"
+    lazy-i18n.enabled: true
+  multi-tenancy:
+    compatibility.enabled: false
+    mtxs.enabled: true
   security:
     authentication.normalize-provider-tenant: true
     mock.users:
@@ -30,7 +32,6 @@ management:
     health:
       show-components: always
       show-details: always
-      probes.enabled: true
   endpoints:
     web:
       exposure:
@@ -46,9 +47,11 @@ spring:
   config.activate.on-profile: cloud
   sql.init.schema-locations: "classpath:schema-nomocks.sql"
 cds:
-  sql.hana.search:
-    fuzzy: true
-    fuzzinessThreshold: 0.9
+  sql.hana:
+    optimizationMode: hex
+    search:
+      fuzzy: true
+      fuzzinessThreshold: 0.9
   messaging.services:
     bupa-messaging:
       kind: enterprise-messaging

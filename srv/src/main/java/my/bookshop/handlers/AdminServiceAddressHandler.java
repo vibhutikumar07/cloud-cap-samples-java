@@ -140,7 +140,7 @@ public class AdminServiceAddressHandler implements EventHandler {
 					.filter(ext -> ext.getId().equals(rep.getId()))
 					.findFirst();
 
-				if(matching.isEmpty()) {
+				if(!matching.isPresent()) {
 					rep.setTombstone(true);
 				} else {
 					matching.get().forEach(rep::put);

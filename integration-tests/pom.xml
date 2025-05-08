@@ -15,6 +15,7 @@
 
 	<properties>
 		<sidecar.dir>../mtx/sidecar</sidecar.dir>
+		<cds.node.executable>node</cds.node.executable>
 	</properties>
 
 	<dependencies>
@@ -22,7 +23,6 @@
 			<groupId>my</groupId>
 			<artifactId>bookshop</artifactId>
 			<version>${revision}</version>
-			<scope>test</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>ch.qos.logback</groupId>
@@ -49,7 +49,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.5.2</version>
+				<version>3.2.5</version>
 				<configuration>
 					<failIfNoTests>false</failIfNoTests>
 				</configuration>
@@ -67,7 +67,7 @@
 				<!-- Tests ending with *IT.java will be executed here -->
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>3.5.2</version>
+				<version>3.2.5</version>
 				<executions>
 					<execution>
 						<goals>
@@ -88,6 +88,9 @@
 						<goals>
 							<goal>install-node</goal>
 						</goals>
+						<configuration>
+							<skip>${cdsdk-global}</skip>
+						</configuration>
 					</execution>
 
 					<execution>
@@ -97,7 +100,7 @@
 						</goals>
 						<phase>pre-integration-test</phase>
 						<configuration>
-							<arguments>ci</arguments>
+							<arguments>install --no-save</arguments>
 							<skip>${skipTests}</skip>
 							<workingDirectory>${sidecar.dir}</workingDirectory>
 						</configuration>
@@ -108,7 +111,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
-				<version>3.5.0</version>
+				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<phase>pre-integration-test</phase>
@@ -119,15 +122,12 @@
 					</execution>
 				</executions>
 				<configuration>
-					<executable>${cds.npm.executable}</executable>
-					<environmentVariables>
-						<PATH>${cds.node.directory}${path.separator}${env.PATH}</PATH>
-					</environmentVariables>
+					<executable>${cds.node.executable}</executable>
 					<skip>${skipTests}</skip>
 					<workingDirectory>${sidecar.dir}</workingDirectory>
 					<async>true</async>
 					<useMavenLogger>true</useMavenLogger>
-					<commandlineArgs>run start</commandlineArgs>
+					<commandlineArgs>node_modules/@sap/cds/bin/cds-serve.js</commandlineArgs>
 				</configuration>
 			</plugin>
 		</plugins>

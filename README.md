@@ -15,7 +15,7 @@ Welcome to the bookshop-java project. It demonstrates how to build business appl
   - [Demonstrated Features](#demonstrated-features)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
-  - [Clone Build & Run](#clone-build-run)
+  - [Clone Build & Run](#clone-build--run)
   - [Using VS Code](#using-vs-code)
   - [Using Eclipse](#using-eclipse)
     - [Building and Running](#building-and-running)
@@ -90,9 +90,6 @@ User Interface related Features:
 - [Model Localization](https://cap.cloud.sap/docs/guides/i18n) for [English](app/_i18n/i18n.properties) and [German](app/_i18n/i18n_de.properties) language for static texts
 - [Custom File Upload extension](app/admin/webapp/extension/Upload.js) which provides a button for uploading `CSV` files
 - A simple Swagger UI for the CatalogService API at <http://localhost:8080/swagger/index.html>
-- UI5 [Tree Table](app/genres/webapp/manifest.json) with Value Help for [GenreHierarchy](app/admin/fiori-service.cds)
-- [Custom event handlers](https://cap.cloud.sap/docs/java/provisioning-api) for Tree Table such as the [Custom business logic for GenreHierarchy](srv/src/main/java/my/bookshop/handlers/HierarchyHandler.java).
-  Please note, that Tree Tables must be used with HANA. Custom event handler in this case provides a limited support ment for local testing.
 
 CDS Maven Plugin Features:
 
@@ -108,8 +105,7 @@ The following sections describe how to set up, build, and run the project.
 
 ## Prerequisites
 
-Make sure you have set up a development environment (that means, you’ve installed the CDS Compiler, Java 21, and Apache Maven) [as described here](https://cap.cloud.sap/docs/java/getting-started).
-This sample application requires a Java 21 compatible JDK. We recommend using [SapMachine 21](https://sap.github.io/SapMachine/).
+Make sure you have set up a development environment (that means, you’ve installed the CDS Compiler, Java, and Apache Maven) [as described here](https://cap.cloud.sap/docs/java/getting-started).
 
 ## Clone Build & Run
 
@@ -140,14 +136,6 @@ Two mock users in addition to the [default mock users](https://cap.cloud.sap/doc
 are defined for local development:
 - User: `user`, password: `user` to browse books
 - User: `admin`, password: `admin` to manage books and orders
-
-### Testing in hybrid mode
-
-You can test the `GenreHierarchyTest` on H2 using the profile `default` as well as on HANA using the profile `cloud`
-
-```
-cds bind --exec -- mvn clean install -Dspring.profiles.active=cloud
-```
 
 ## Using VS Code
 
@@ -190,8 +178,11 @@ the code generated from the CDS model the build path of the project (module) nee
 with the folder containing the generated code. In order to add the generated code you need to add the 'gen' folder
 to the build path:
 
-1. Right-click the `srv/src/gen/java` folder, select 'Mark Directory as' and mark it as 'Sources Root'.
-1. Right-click the `srv/src/gen/resources` folder, select 'Mark Directory as' and mark it as 'Resources Root'.
+1. Open the project settings.
+2. Navigate to the 'modules' section.
+3. Select the srv/src/gen folder and mark it as 'sources'.
+4. Save and leave the project settings.
+5. Trigger a rebuild.
 
 After the generated code is considered by IntelliJ's build the application can be handled just as any other Spring Boot
 application in IntelliJ.
@@ -249,8 +240,6 @@ Deploy as Multitenant Application:
 - Run `cf deploy mta_archives/bookshop-mt_1.0.0.mtar`
 - Go to another subaccount in your global account, under subscriptions and subscribe to the application you deployed.
 - Run `cf map-route bookshop-mt-app <YOUR DOMAIN> --hostname <SUBSCRIBER TENANT>-<ORG>-<SPACE>-bookshop-mt-app` or create and bind the route manually.
-  - `<YOUR DOMAIN>`: Find the app domain for your landscape by executing `cf domains`. It commonly starts with `cfapps.`.
-  - `<SUBSCRIBER TENANT>`: The subdomain of the subscriber subaccount. You can find this info in the subaccount overview.
 
 > [!NOTE]
 > Please note that the route length is limited to 63 characters and can easily be exceeded. So keeping the app name and sub-account subdomain as short as possible will help you stay within length.

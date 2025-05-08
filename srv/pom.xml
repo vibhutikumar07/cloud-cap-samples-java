@@ -19,16 +19,6 @@
 		<!-- CDS DEPENDENCIES -->
 		<dependency>
 			<groupId>com.sap.cds</groupId>
-			<artifactId>sdm</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sap.cds</groupId>
-			<artifactId>cds-feature-mt</artifactId>
-			<version>3.4.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sap.cds</groupId>
 			<artifactId>cds-starter-spring-boot</artifactId>
 		</dependency>
 
@@ -37,17 +27,51 @@
 			<artifactId>cds-adapter-odata-v4</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
+		<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-collections4</artifactId>
+    <version>4.4</version> <!-- Use the appropriate version -->
+</dependency>
+<dependency>
+    <groupId>com.sap.cds</groupId>
+    <artifactId>cds-feature-mt</artifactId>
+    <version>3.4.0</version>
+</dependency>
+<dependency>
+    <groupId>com.sap.cds</groupId>
+    <artifactId>sdm</artifactId>
+    <version>2.0.0-SNAPSHOT</version>
+</dependency>
 		<dependency>
 			<groupId>com.sap.cds</groupId>
 			<artifactId>cds-starter-cloudfoundry</artifactId>
 			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sap.cds</groupId>
+					<artifactId>cds-feature-xsuaa</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sap.cloud.security.xsuaa</groupId>
+					<artifactId>xsuaa-spring-boot-starter</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>com.sap.cds</groupId>
 			<artifactId>cds-starter-k8s</artifactId>
 			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sap.cds</groupId>
+					<artifactId>cds-feature-xsuaa</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sap.cloud.security.xsuaa</groupId>
+					<artifactId>xsuaa-spring-boot-starter</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -65,13 +89,6 @@
 		<dependency>
 			<groupId>com.sap.cds</groupId>
 			<artifactId>cds-feature-change-tracking</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.sap.cds</groupId>
-			<artifactId>cds-feature-attachments</artifactId>
-			<version>${cds-feature-attachments.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -178,11 +195,6 @@
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>
 				<artifactId>native-maven-plugin</artifactId>
-				<configuration>
-					<metadataRepository>
-						<version>0.3.14</version>
-					</metadataRepository>
-				</configuration>
 			</plugin>
 
 			<!-- STEPS TO BUILD CDS MODEL AND GENERATE POJOs -->
@@ -203,15 +215,18 @@
 						<goals>
 							<goal>install-node</goal>
 						</goals>
+						<configuration>
+							<skip>${cdsdk-global}</skip>
+						</configuration>
 					</execution>
 
 					<execution>
-						<id>cds.npm-ci</id>
+						<id>cds.install-dependencies</id>
 						<goals>
 							<goal>npm</goal>
 						</goals>
 						<configuration>
-							<arguments>ci</arguments>
+							<arguments>install @sap/cds-dk@${cds.install-cdsdk.version} @sap/cds-mtxs@^1 --no-save</arguments>
 						</configuration>
 					</execution>
 
@@ -229,9 +244,11 @@
 						</goals>
 						<configuration>
 							<commands>
-								<command>build --for java</command>
-								<command>deploy --to h2 --with-mocks --dry --out "${project.basedir}/src/main/resources/schema.sql"</command>
-								<command>deploy --to h2 --dry --out "${project.basedir}/src/main/resources/schema-nomocks.sql"</command>
+								<command>build --for java --opts contentLocalizedEdmx=false</command>
+								<command>deploy --to h2 --with-mocks --dry &gt;
+									"${project.basedir}/src/main/resources/schema.sql"</command>
+								<command>deploy --to h2 --dry &gt;
+									"${project.basedir}/src/main/resources/schema-nomocks.sql"</command>
 								<command>compile srv/cat-service.cds -2 openapi --openapi:url /api/browse &gt;
 									"${project.basedir}/src/main/resources/swagger/openapi.json"</command>
 							</commands>
@@ -245,11 +262,21 @@
 						</goals>
 						<configuration>
 							<basePackage>cds.gen</basePackage>
-							<strictSetters>true</strictSetters>
+							<uniqueEventContexts>true</uniqueEventContexts>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<!-- A profile that uses global installation of @sap/cds-dk -->
+		<profile>
+			<id>cdsdk-global</id>
+			<properties>
+				<cdsdk-global>true</cdsdk-global>
+			</properties>
+		</profile>
+	</profiles>
 </project>
