@@ -78,7 +78,7 @@ modules:
       memory: 256M
       disk-quota: 512M
       keep-existing-routes: true
-      host: ${space}-multi-pgnaicm
+      host: ${space}-1-multi-pgnaicm
       routes:
         # - route: playground-agri-com-de2-subscriber-${space}-pgcnaim.${default-domain}
         - route: sdm-dev-consumer-eu12-6uxoiqfk-${default-uri}
