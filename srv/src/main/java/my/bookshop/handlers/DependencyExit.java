@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sap.cds.Struct;
-import com.sap.cds.sdm.model.FileExtension;
 import com.sap.cds.sdm.model.Repository;
 import com.sap.cds.sdm.model.RepositoryParams;
 import com.sap.cds.sdm.service.SDMAdminService;
@@ -49,7 +48,7 @@ return  sdmBinding.getCredentials();
     @After(event = DeploymentService.EVENT_SUBSCRIBE)
     public void onSubscribe(SubscribeEventContext context) throws JsonProcessingException,UnsupportedEncodingException {
     //use httpclient and onboard a repository
-       System.out.println("After subscribing to my CAP application");
+        System.out.println("After subscribing to my CAP application");
          final SaasRegistrySubscriptionOptions options = Struct
                     .access(context.getOptions())
                     .as(SaasRegistrySubscriptionOptions.class);
@@ -61,12 +60,11 @@ SDMAdminService sdmAdminService =  new SDMAdminServiceImpl();
 Repository repository = new Repository();
 repository.setDescription("Onboarding Repo Demo");
 repository.setDisplayName(" Test Onboarding repo");
-repository.setExternalId(System.getenv("REPOSITORY_ID"));
 repository.setSubdomain(subdomain);
 repository.setHashAlgorithms("SHA-256");
 repository.setIsEncryptionEnabled(false);
-repository.setIsVirusScanEnabled(true);
-repository.setSkipVirusScanForLargeFile(true);
+repository.setIsVirusScanEnabled(false);
+repository.setExternalId("MULTITENANT-TEST-REPO");
 List<RepositoryParams> repositoryParams = new ArrayList<>();
 RepositoryParams repositoryParam = new RepositoryParams();
       repositoryParam.setParamName("fileExtensions");
@@ -80,25 +78,27 @@ RepositoryParams repositoryParam = new RepositoryParams();
       repositoryParam.setParamValue(jsonParamValue);
       repositoryParams.add(repositoryParam);
       repository.setRepositoryParams(repositoryParams);
+      repository.setIsVersionEnabled(false);
       System.out.println("Repo Param "+repositoryParams);
       System.out.println("Repo  "+repository);
 String response = sdmAdminService.onboardRepository(repository);
 System.out.println("Onboard response "+response);
     }
 
-//     @After(event = DeploymentService.EVENT_UNSUBSCRIBE)
-// public void afterUnsubscribe(UnsubscribeEventContext context) {
-//     //delete onboarded repository
-//     System.out.println("After unsubscribing to my CAP application");
-//         final SaasRegistrySubscriptionOptions options = Struct
-//        .access(context.getOptions())
-//        .as(SaasRegistrySubscriptionOptions.class);
-// // Access the specific property
-// final String subdomain = options.getSubscribedSubdomain();
-// System.out.println("subdomain "+subdomain);
-
-// RepoService repoService =  new RepoServiceImpl();
-// String res = repoService.offboardRepository(subdomain);
-// System.out.println(res);
-// }
+    @After(event = DeploymentService.EVENT_UNSUBSCRIBE)
+ public void afterUnsubscribe(UnsubscribeEventContext context) {
+     //delete onboarded repository
+     System.out.println("After unsubscribing to my CAP application");
+         final SaasRegistrySubscriptionOptions options = Struct
+        .access(context.getOptions())
+        .as(SaasRegistrySubscriptionOptions.class);
+ // Access the specific property
+ final String subdomain = options.getSubscribedSubdomain();
+ System.out.println("subdomain "+subdomain);
+ 
+ SDMAdminService sdmAdminService =  new SDMAdminServiceImpl();
+ String res = sdmAdminService.offboardRepository(subdomain);
+ System.out.println(res);
+ }
+  
 }

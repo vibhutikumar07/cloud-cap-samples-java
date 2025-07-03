@@ -5,15 +5,13 @@ using {sap.changelog as changelog} from 'com.sap.cds/change-tracking';
 extend my.Orders with changelog.changeTracked;
 
 @path : 'admin'
-service AdminService @(requires : 'admin') {
+service AdminService @(requires: [
+    'admin',
+    'system-user'
+]) {
   entity Books   as projection on my.Books excluding { reviews } actions {
     action addToOrder(order_ID : UUID, quantity : Integer) returns Orders;
-  
   }
-  // entity Books.attachments as projection on my.Books.attachments actions{
-  //   action createLink(in:many $self);
-  //   action editLink()
-  // }
 
   entity Authors as projection on my.Authors;
   entity Orders  as select from my.Orders;

@@ -1,7 +1,7 @@
-using {my.bookshop as my} from '../db/index';
+using {my.bookshop as my} from '../db/books';
 
 @path : 'browse'
-service CatalogService @(requires: 'any') {
+service CatalogService @(requires: ['any', 'system-user']) {
     @readonly
     entity Books       as projection on my.Books excluding {
         createdBy,

@@ -34,8 +34,20 @@ annotate AdminService.Books with @(UI : {
         {
             $Type  : 'UI.ReferenceFacet',
             ID     : 'AttachmentsFacet',
-            Label  : '{i18n>attachmentsAndLinks}',
+            Label  : '{i18n>attachments}',
             Target : 'attachments/@UI.LineItem'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            ID     : 'ReferencesFacet',
+            Label  : 'References',
+            Target : 'references/@UI.LineItem'
+        },
+        {
+            $Type  : 'UI.ReferenceFacet',
+            ID     : 'FootNotesFacet',
+            Label  : 'FootNotes',
+            Target : 'footnotes/@UI.LineItem'
         }
     ],
     FieldGroup #General : {Data : [
@@ -136,4 +148,14 @@ annotate AdminService.Books actions {
     ),
     quantity @title : '{i18n>Quantity}'
     )
+}
+
+annotate AdminService.Books.attachments with {
+  customProperty1 @Common.ValueListWithFixedValues;
+}
+annotate AdminService.Books.references with {
+  customProperty1 @Common.ValueListWithFixedValues;
+}
+annotate AdminService.Books.footnotes with {
+  customProperty1 @Common.ValueListWithFixedValues;
 }
