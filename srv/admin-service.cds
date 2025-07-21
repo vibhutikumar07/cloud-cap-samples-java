@@ -13,6 +13,12 @@ service AdminService @(requires: [
     action addToOrder(order_ID : UUID, quantity : Integer) returns Orders;
   }
 
+  entity Books.attachments as projection on my.Books.attachments
+  actions {
+    @(Common.SideEffects : {TargetEntities: ['']},)
+    action copyAttachments(in:many $self,up__ID:String,objectIds:String);
+  }
+
   entity Authors as projection on my.Authors;
   entity Orders  as select from my.Orders;
 
