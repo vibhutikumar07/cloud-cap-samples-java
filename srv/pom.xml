@@ -263,6 +263,8 @@
 						<configuration>
 							<basePackage>cds.gen</basePackage>
 							<uniqueEventContexts>true</uniqueEventContexts>
+							<strictSetters>true</strictSetters>
+                            				<interfacesForAspects>true</interfacesForAspects>
 						</configuration>
 					</execution>
 				</executions>
