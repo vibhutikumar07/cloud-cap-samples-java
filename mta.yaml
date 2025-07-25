@@ -139,7 +139,7 @@ resources:
           onUnSubscriptionAsync: true
           onUpdateDependenciesAsync: true
           callbackTimeoutMillis: 3600000
-        displayName: Multitenancy App Developcap
+        displayName: Multitenancy App ${space}
         description: Multitenancy App test deployed using job
         category: 'Category'
     requires:
