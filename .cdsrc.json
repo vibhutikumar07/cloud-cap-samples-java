@@ -6,9 +6,6 @@
     },
     "profile": "with-mtx-sidecar",
     "cdsc": {
-        "newParser": true
-    },
-    "sql": {
-        "native_hana_associations": false
+        "moduleLookupDirectories": [ "node_modules/", "target/cds/", "mtx/sidecar/node_modules/" ]
     }
 }

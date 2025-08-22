@@ -25,7 +25,7 @@ modules:
       build-result: target/*-exec.jar
     requires:
       - name: bookshop-hdi-container
-      - name: bookshop-uaa-rashminew
+      - name: bookshop-uaa
       - name: cf-logging
     provides:
       - name: srv-api
@@ -62,7 +62,7 @@ modules:
         url: ~{srv-url}
         forwardAuthToken: true
         strictSSL: true
-    - name: bookshop-uaa-rashminew
+    - name: bookshop-uaa
     provides:
       - name: app-api
         properties:
@@ -70,14 +70,14 @@ modules:
 # --------------------- RESOURCES ---------------------
 resources:
 # -----------------------------------------------------
-  - name: bookshop-uaa-rashminew
+  - name: bookshop-uaa
     type: org.cloudfoundry.managed-service
     parameters:
       service: xsuaa
       service-plan: application
       path: ./xs-security.json
       config: # override xsappname as it needs to be unique
-        xsappname: bookshopnew-${org}-${space}
+        xsappname: bookshop-${org}-${space}
         oauth2-configuration:
           redirect-uris:
           - ~{app-api/app-url}/**
