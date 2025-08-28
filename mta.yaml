@@ -56,8 +56,8 @@ modules:
       builder: custom
       build-result: gen
       commands:
-        - cds-mtx upgrade *
         - npm run build
+        - cds-mtx upgrade *
       requires:
         - name: bookshop-mt-srv
     requires:
