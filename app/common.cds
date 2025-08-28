@@ -60,6 +60,170 @@ annotate my.Books with
     Description : {Value : author.name}
 }, });
 
+////////////////////////////////////////////////////////////////////////////
+//
+//	Attachments Details
+//
+
+annotate my.Books.attachments with @UI: {
+  HeaderInfo: {
+    $Type         : 'UI.HeaderInfoType',
+    TypeName      : '{i18n>Attachment}',
+    TypeNamePlural: '{i18n>Attachments}',
+  },
+  LineItem  : [
+    {Value: type, @HTML5.CssDefaults: {width: '10%'}},
+    {Value: fileName, @HTML5.CssDefaults: {width: '25%'}},
+    {Value: content, @HTML5.CssDefaults: {width: '0%'}},
+    {Value: createdAt, @HTML5.CssDefaults: {width: '20%'}},
+    {Value: createdBy, @HTML5.CssDefaults: {width: '20%'}},
+    {Value: note, @HTML5.CssDefaults: {width: '25%'}},
+    {
+      $Type : 'UI.DataFieldForAction',
+      Label : 'Copy Attachments',
+      Action: 'AdminService.copyAttachments',
+    },
+    {
+      $Type  : 'UI.DataFieldForActionGroup',
+      ID     : 'TableActionGroup',
+      Label  : 'Create',
+      ![@UI.Hidden]: {$edmJson: {$Eq: [ {$Path: 'IsActiveEntity'}, true ]}},
+      Actions: [
+        {
+          $Type : 'UI.DataFieldForAction',
+          Label : 'Link',
+          Action: 'AdminService.createLink',
+        }
+      ]
+    },
+    {
+      $Type : 'UI.DataFieldForAction',
+      Label : 'Edit Link',
+      Action: 'AdminService.editLink',           
+    }
+  ],
+} 
+{
+  note       @(title: '{i18n>Note}');
+  fileName  @(title: '{i18n>Filename}');
+  modifiedAt @(odata.etag: null);
+  content
+    @Core.ContentDisposition: { Filename: fileName }
+    @(title: '{i18n>Attachment}');
+  folderId @UI.Hidden;
+  repositoryId  @UI.Hidden ;
+  objectId  @UI.Hidden ;
+  mimeType @UI.Hidden;
+  status @UI.Hidden;
+}
+annotate Attachments with @Common: {SideEffects #ContentChanged: {
+  SourceProperties: [content],
+  TargetProperties: ['status'],
+  TargetEntities : [Books.attachments]
+}}{};
+
+annotate my.Books.references with @UI: {
+    HeaderInfo: {
+        $Type         : 'UI.HeaderInfoType',
+        TypeName      : '{i18n>Attachment}',
+        TypeNamePlural: '{i18n>Attachments}',
+    },
+    LineItem  : [
+    {Value: type, @HTML5.CssDefaults: {width: '10%'}},
+    {Value: fileName, @HTML5.CssDefaults: {width: '25%'}},
+    {Value: content, @HTML5.CssDefaults: {width: '0%'}},
+    {Value: createdAt, @HTML5.CssDefaults: {width: '20%'}},
+    {Value: createdBy, @HTML5.CssDefaults: {width: '20%'}},
+    {Value: note, @HTML5.CssDefaults: {width: '25%'}},
+    {
+      $Type : 'UI.DataFieldForAction',
+      Label : 'Copy Attachments',
+      Action: 'AdminService.copyAttachments',
+    },
+    {
+      $Type  : 'UI.DataFieldForActionGroup',
+      ID     : 'TableActionGroup',
+      Label  : 'Create',
+      ![@UI.Hidden]: {$edmJson: {$Eq: [ {$Path: 'IsActiveEntity'}, true ]}},
+      Actions: [
+        {
+          $Type : 'UI.DataFieldForAction',
+          Label : 'Link',
+          Action: 'AdminService.createLink',
+        }
+      ]
+    },
+    {
+      $Type : 'UI.DataFieldForAction',
+      Label : 'Edit Link',
+      Action: 'AdminService.editLink',           
+    }
+  ],
+} {
+    note       @(title: '{i18n>Note}');
+    fileName  @(title: '{i18n>Filename}');
+    modifiedAt @(odata.etag: null);
+    content
+       @Core.ContentDisposition: { Filename: fileName }
+        @(title: '{i18n>Attachment}');
+       folderId @UI.Hidden;
+    repositoryId  @UI.Hidden ;
+    objectId  @UI.Hidden ;
+    mimeType @UI.Hidden;
+    status @UI.Hidden;
+}
+
+annotate my.Books.footnotes with @UI: {
+    HeaderInfo: {
+        $Type         : 'UI.HeaderInfoType',
+        TypeName      : '{i18n>Attachment}',
+        TypeNamePlural: '{i18n>Attachments}',
+    },
+    LineItem  : [
+    {Value: type, @HTML5.CssDefaults: {width: '10%'}},
+    {Value: fileName, @HTML5.CssDefaults: {width: '25%'}},
+    {Value: content, @HTML5.CssDefaults: {width: '0%'}},
+    {Value: createdAt, @HTML5.CssDefaults: {width: '20%'}},
+    {Value: createdBy, @HTML5.CssDefaults: {width: '20%'}},
+    {Value: note, @HTML5.CssDefaults: {width: '25%'}},
+    {
+      $Type : 'UI.DataFieldForAction',
+      Label : 'Copy Attachments',
+      Action: 'AdminService.copyAttachments',
+    },
+    {
+      $Type  : 'UI.DataFieldForActionGroup',
+      ID     : 'TableActionGroup',
+      Label  : 'Create',
+      ![@UI.Hidden]: {$edmJson: {$Eq: [ {$Path: 'IsActiveEntity'}, true ]}},
+      Actions: [
+        {
+          $Type : 'UI.DataFieldForAction',
+          Label : 'Link',
+          Action: 'AdminService.createLink',
+        }
+      ]
+    },
+    {
+      $Type : 'UI.DataFieldForAction',
+      Label : 'Edit Link',
+      Action: 'AdminService.editLink',           
+    }
+  ],
+} {
+    note       @(title: '{i18n>Note}');
+    fileName  @(title: '{i18n>Filename}');
+    modifiedAt @(odata.etag: null);
+    content
+       @Core.ContentDisposition: { Filename: fileName }
+        @(title: '{i18n>Attachment}');
+       folderId @UI.Hidden;
+    repositoryId  @UI.Hidden ;
+    objectId  @UI.Hidden ;
+    mimeType @UI.Hidden;
+    status @UI.Hidden;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////
 //
