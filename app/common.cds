@@ -95,16 +95,13 @@ annotate my.Books.attachments with @UI: {
           Action: 'AdminService.createLink',
         }
       ]
-    },
-    {
-      $Type : 'UI.DataFieldForAction',
-      Label : 'Edit Link',
-      Action: 'AdminService.editLink',           
     }
   ],
 } 
 {
   note       @(title: '{i18n>Note}');
+  type       @(title: '{i18n>Type}');
+  linkUrl    @(title: '{i18n>LinkURL}');
   fileName  @(title: '{i18n>Filename}');
   modifiedAt @(odata.etag: null);
   content
@@ -152,15 +149,12 @@ annotate my.Books.references with @UI: {
           Action: 'AdminService.createLink',
         }
       ]
-    },
-    {
-      $Type : 'UI.DataFieldForAction',
-      Label : 'Edit Link',
-      Action: 'AdminService.editLink',           
     }
   ],
 } {
     note       @(title: '{i18n>Note}');
+    type       @(title: '{i18n>Type}');
+    linkUrl    @(title: '{i18n>LinkURL}');
     fileName  @(title: '{i18n>Filename}');
     modifiedAt @(odata.etag: null);
     content
@@ -203,15 +197,12 @@ annotate my.Books.footnotes with @UI: {
           Action: 'AdminService.createLink',
         }
       ]
-    },
-    {
-      $Type : 'UI.DataFieldForAction',
-      Label : 'Edit Link',
-      Action: 'AdminService.editLink',           
     }
   ],
 } {
     note       @(title: '{i18n>Note}');
+    type       @(title: '{i18n>Type}');
+    linkUrl    @(title: '{i18n>LinkURL}');
     fileName  @(title: '{i18n>Filename}');
     modifiedAt @(odata.etag: null);
     content
