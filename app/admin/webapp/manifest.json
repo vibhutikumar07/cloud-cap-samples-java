@@ -120,6 +120,29 @@
                                         "route" : "AuthorsDetails"
                                     }
                                 }
+                            },
+                            "controlConfiguration": {
+                                "attachments/@com.sap.vocabularies.UI.v1.LineItem": {
+                                  "tableSettings": {
+                                    "type": "ResponsiveTable",
+                                    "selectionMode": "Auto",
+                                    "rowPress": ".extension.admin.controller.custom.onRowPress"
+                                  }
+                                },
+                                "references/@com.sap.vocabularies.UI.v1.LineItem": {
+                                  "tableSettings": {
+                                    "type": "ResponsiveTable",
+                                    "selectionMode": "Auto",
+                                    "rowPress": ".extension.admin.controller.custom.onRowPress"
+                                  }
+                                },
+                                "footnotes/@com.sap.vocabularies.UI.v1.LineItem": {
+                                  "tableSettings": {
+                                    "type": "ResponsiveTable",
+                                    "selectionMode": "Auto",
+                                    "rowPress": ".extension.admin.controller.custom.onRowPress"
+                                  }
+                                }
                             }
                         }
                     }
@@ -135,6 +158,15 @@
                     }
                 }
             }
+        },
+        "extends": {
+          "extensions": {
+            "sap.ui.controllerExtensions": {
+              "sap.fe.templates.ObjectPage.ObjectPageController#admin::BooksDetailsList": {
+                  "controllerName": "admin.controller.custom"
+              }       
+            }
+          }
         },
         "contentDensities": {
             "compact": true,
