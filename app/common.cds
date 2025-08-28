@@ -95,6 +95,28 @@ annotate my.Books.attachments with @UI: {
           Action: 'AdminService.createLink',
         }
       ]
+    },
+    {
+      @UI.Hidden: {$edmJson: {
+          $If: [
+            { $Eq: [ { $Path: 'IsActiveEntity' }, true ] },
+            true,
+            {
+              $If: [
+                { $Ne: [ { $Path: 'mimeType' }, 'application/internet-shortcut' ] },
+                true,
+                false
+              ]
+            }
+          ]
+        }
+      },
+      $Type : 'UI.DataFieldForAction',
+      Label : 'Edit Link',
+      Action: 'AdminService.editLink',
+      Inline: true,
+      IconUrl: 'sap-icon://edit',
+      @HTML5.CssDefaults: {width: '4%'}         
     }
   ],
 } 
