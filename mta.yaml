@@ -78,7 +78,7 @@ modules:
           name: upgrade
           memory: 512M
           disk-quota: 768M
-          command: npx cds-mtxs upgrade "*"
+          command: npx -p @sap/cds-mtxs cds-mtxs upgrade "*"
 # --------------------- APPROUTER MODULE ---------------------
   - name: bookshop-mt-app
 # ------------------------------------------------------------
