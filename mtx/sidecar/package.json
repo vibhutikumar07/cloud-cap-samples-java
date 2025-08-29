@@ -17,6 +17,11 @@
   },
   "cds": {
     "profiles": ["mtx-sidecar", "java"],
+    "requires": {
+      "multitenancy": true,
+      "extensibility": true,
+      "toggles": true
+    },
     "[development]": {
       "requires": { "auth": "dummy" }
     }
