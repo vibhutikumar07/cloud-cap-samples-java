@@ -2,7 +2,6 @@
   "dependencies": {
     "@sap/cds": "^8",
     "@sap/cds-mtxs": "^2",
-    "@sap/cds-mtx": "^2",
     "@sap/xssec": "^3",
     "express": "^4",
     "hdb": "^0",
