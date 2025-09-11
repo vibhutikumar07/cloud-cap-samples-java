@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "@sap/cds": "^9",
-    "@sap/cds-mtxs": "^2",
-    "@sap/xssec": "^3",
+    "@sap/cds-mtxs": "^3",
+    "@sap/xssec": "^4",
     "express": "^4",
     "hdb": "^0",
     "passport": "^0",
@@ -12,7 +12,7 @@
     "sqlite3": "^5"
   },
   "engines": {
-    "node": "^18"
+    "node": "^22"
   },
   "cds": {
     "profiles": ["mtx-sidecar", "java"],
