@@ -1,8 +1,21 @@
 using my.bookshop as my from '../db/books';
 using {sap.attachments.Attachments, sap.attachments.StatusCode} from`com.sap.cds/sdm`;
+using {sap.capire.bookshop.Chapters, sap.capire.bookshop.Pages} from '../db/schema';
 using { sap.common.CodeList } from '@sap/cds/common';
 
 extend entity my.Books with {
+    attachments : Composition of many Attachments @SDM.Attachments:{maxCount: 4, maxCountError:'Only 4 attachments allowed.'};
+    references  : Composition of many Attachments @SDM.Attachments:{maxCount: 5, maxCountError:'Only 5 attachments allowed.'};
+    footnotes   : Composition of many Attachments;
+}
+
+extend entity Chapters with {
+    attachments : Composition of many Attachments @SDM.Attachments:{maxCount: 4, maxCountError:'Only 4 attachments allowed.'};
+    references  : Composition of many Attachments @SDM.Attachments:{maxCount: 5, maxCountError:'Only 5 attachments allowed.'};
+    footnotes   : Composition of many Attachments;
+}
+
+extend entity Pages with {
     attachments : Composition of many Attachments @SDM.Attachments:{maxCount: 4, maxCountError:'Only 4 attachments allowed.'};
     references  : Composition of many Attachments @SDM.Attachments:{maxCount: 5, maxCountError:'Only 5 attachments allowed.'};
     footnotes   : Composition of many Attachments;
@@ -63,4 +76,81 @@ annotate Books.attachments with {
         },
         ValueList: {entity:'Statuses'}
     );
+}
+
+annotate Books.references with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate Chapters.attachments with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate Chapters.references with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate Pages.attachments with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate Pages.references with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate Chapters.footnotes with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate Pages.footnotes with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
 }
