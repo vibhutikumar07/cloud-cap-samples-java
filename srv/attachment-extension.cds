@@ -1,6 +1,5 @@
 using my.bookshop as my from '../db/books';
 using {sap.attachments.Attachments, sap.attachments.StatusCode} from`com.sap.cds/sdm`;
-using {sap.capire.bookshop.Chapters, sap.capire.bookshop.Pages} from '../db/schema';
 using { sap.common.CodeList } from '@sap/cds/common';
 
 extend entity my.Books with {
@@ -9,13 +8,13 @@ extend entity my.Books with {
     footnotes   : Composition of many Attachments;
 }
 
-extend entity Chapters with {
+extend entity my.Chapters with {
     attachments : Composition of many Attachments @SDM.Attachments:{maxCount: 4, maxCountError:'Only 4 attachments allowed.'};
     references  : Composition of many Attachments @SDM.Attachments:{maxCount: 5, maxCountError:'Only 5 attachments allowed.'};
     footnotes   : Composition of many Attachments;
 }
 
-extend entity Pages with {
+extend entity my.Pages with {
     attachments : Composition of many Attachments @SDM.Attachments:{maxCount: 4, maxCountError:'Only 4 attachments allowed.'};
     references  : Composition of many Attachments @SDM.Attachments:{maxCount: 5, maxCountError:'Only 5 attachments allowed.'};
     footnotes   : Composition of many Attachments;
@@ -68,7 +67,7 @@ entity WDIRSCodeList : CodeList {
 
 type WDIRS_CodeList_TYPE : Association to one WDIRSCodeList;
 
-annotate Books.attachments with {
+annotate my.Books.attachments with {
     status @(
         Common.Text: {
             $value: ![statusText.text],
@@ -78,7 +77,7 @@ annotate Books.attachments with {
     );
 }
 
-annotate Books.references with {
+annotate my.Books.references with {
   status @(
     Common.Text: {
       $value: ![statusText.text],
@@ -89,7 +88,7 @@ annotate Books.references with {
   );
 }
 
-annotate Chapters.attachments with {
+annotate my.Chapters.attachments with {
   status @(
     Common.Text: {
       $value: ![statusText.text],
@@ -100,7 +99,7 @@ annotate Chapters.attachments with {
   );
 }
 
-annotate Chapters.references with {
+annotate my.Chapters.references with {
   status @(
     Common.Text: {
       $value: ![statusText.text],
@@ -111,7 +110,7 @@ annotate Chapters.references with {
   );
 }
 
-annotate Pages.attachments with {
+annotate my.Pages.attachments with {
   status @(
     Common.Text: {
       $value: ![statusText.text],
@@ -122,7 +121,7 @@ annotate Pages.attachments with {
   );
 }
 
-annotate Pages.references with {
+annotate my.Pages.references with {
   status @(
     Common.Text: {
       $value: ![statusText.text],
@@ -133,7 +132,7 @@ annotate Pages.references with {
   );
 }
 
-annotate Chapters.footnotes with {
+annotate my.Chapters.footnotes with {
   status @(
     Common.Text: {
       $value: ![statusText.text],
@@ -144,7 +143,7 @@ annotate Chapters.footnotes with {
   );
 }
 
-annotate Pages.footnotes with {
+annotate my.Pages.footnotes with {
   status @(
     Common.Text: {
       $value: ![statusText.text],

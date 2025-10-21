@@ -1,6 +1,7 @@
 using {sap.common.Languages as CommonLanguages} from '@sap/cds/common';
 using {my.bookshop as my} from '../db/index';
 using {sap.changelog as changelog} from 'com.sap.cds/change-tracking';
+using from './attachment-extension';
 
 extend my.Orders with changelog.changeTracked;
 
