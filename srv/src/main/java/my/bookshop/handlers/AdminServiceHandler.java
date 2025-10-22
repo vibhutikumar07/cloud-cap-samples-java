@@ -7,7 +7,7 @@ import cds.gen.adminservice.AdminService;
 import cds.gen.adminservice.AdminService_;
 import cds.gen.adminservice.Books;
 import cds.gen.adminservice.BooksAddToOrderContext;
-import cds.gen.adminservice.BooksCovers;
+import cds.gen.adminservice.BooksAttachments;
 import cds.gen.adminservice.Books_;
 import cds.gen.adminservice.OrderItems;
 import cds.gen.adminservice.OrderItems_;
@@ -278,9 +278,9 @@ class AdminServiceHandler implements EventHandler {
 	}
 
 	@Before(event = {CqnService.EVENT_CREATE, CqnService.EVENT_UPDATE, DraftService.EVENT_DRAFT_NEW, DraftService.EVENT_DRAFT_PATCH})
-	public void restoreCoversUpId(CqnStructuredTypeRef ref, BooksCovers cover) {
+	public void restoreAttachmentsUpId(CqnStructuredTypeRef ref, BooksAttachments attachment) {
 		// restore up__ID, which is not provided via OData due to containment
-		cover.setUpId((String) analyzer.analyze(ref).rootKeys().get(Books.ID));
+		attachment.setUpId((String) analyzer.analyze(ref).rootKeys().get(Books.ID));
 	}
 
 	private BigDecimal defaultZero(BigDecimal decimal) {

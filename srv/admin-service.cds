@@ -66,8 +66,6 @@ service AdminService @(requires: [
 
   entity Authors as projection on my.Authors;
   entity Orders  as select from my.Orders;
-  entity Authors        as projection on my.Authors;
-  entity Orders         as select from my.Orders;
 
   type NextSibling : cuid { };
   entity GenreHierarchy as projection on my.Genres
