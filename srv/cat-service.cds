@@ -15,6 +15,8 @@ service CatalogService @(requires: ['any', 'system-user']) {
 
     @readonly
     entity Reviews     as projection on my.Reviews;
+    @readonly
+    entity GenreHierarchy as projection on my.Genres;
 
     action submitOrder(book : Books : ID, quantity : Integer) returns {
         stock : Integer

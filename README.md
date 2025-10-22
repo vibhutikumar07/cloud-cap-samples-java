@@ -90,6 +90,9 @@ User Interface related Features:
 - [Model Localization](https://cap.cloud.sap/docs/guides/i18n) for [English](app/_i18n/i18n.properties) and [German](app/_i18n/i18n_de.properties) language for static texts
 - [Custom File Upload extension](app/admin/webapp/extension/Upload.js) which provides a button for uploading `CSV` files
 - A simple Swagger UI for the CatalogService API at <http://localhost:8080/swagger/index.html>
+- UI5 [Tree Table](app/genres/webapp/manifest.json) with CRUD requests and Value Help for [GenreHierarchy](app/admin/fiori-service.cds).
+  Please note, that Tree Tables must be used with HANA (for productive usage) or H2 (for local development and testing).
+- [Custom actions](https://cap.cloud.sap/docs/cds/cdl#actions) such as `moveSibling` in the [Admin Service](srv/admin-service.cds). This action demonstrates experimental UI feature [ChangeNextSiblingAction](https://github.com/SAP/odata-vocabularies/blob/main/vocabularies/Hierarchy.md#template_changenextsiblingaction-experimental). The Action implementation is in the [Hierarchy Sibling Action Handler](srv/src/main/java/my/bookshop/handlers/HierarchySiblingActionHandler.java)
 
 CDS Maven Plugin Features:
 

@@ -264,7 +264,8 @@
 							<basePackage>cds.gen</basePackage>
 							<uniqueEventContexts>true</uniqueEventContexts>
 							<strictSetters>true</strictSetters>
-                            				<interfacesForAspects>true</interfacesForAspects>
+							<interfacesForAspects>true</interfacesForAspects>
+							<linkedInterfaces>true</linkedInterfaces>
 						</configuration>
 					</execution>
 				</executions>
