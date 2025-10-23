@@ -7,6 +7,19 @@ extend entity my.Books with {
     references  : Composition of many Attachments @SDM.Attachments:{maxCount: 5, maxCountError:'Only 5 attachments allowed.'};
     footnotes   : Composition of many Attachments;
 }
+
+extend entity my.Chapters with { 
+  attachments: Composition of many Attachments;
+  references: Composition of many Attachments;
+  footnotes: Composition of many Attachments;
+}
+
+extend entity my.Pages with { 
+  attachments: Composition of many Attachments;
+  references: Composition of many Attachments;
+  footnotes: Composition of many Attachments;
+}
+
 extend entity my.Notebooks with {
     attachments : Composition of many Attachments @SDM.Attachments:{maxCount: 4, maxCountError:'Only 4 attachments allowed.'};
 }
@@ -47,6 +60,72 @@ extend Attachments with {
         name: 'Working:DocumentInfoRecordBoolean'
     }  
     @(title: 'DocumentInfoRecordBoolean');
+}
+
+annotate my.Chapters.attachments with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate my.Chapters.references with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate my.Chapters.footnotes with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate my.Pages.attachments with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate my.Pages.references with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
+}
+
+annotate my.Pages.footnotes with {
+  status @(
+    Common.Text: {
+      $value: ![statusText.text],
+      ![@UI.TextArrangement]: #TextOnly
+    },
+    ValueList: { entity: 'Statuses' },
+    sap.value.list: 'fixed-values'
+  );
 }
 
 entity WDIRSCodeList : CodeList {
