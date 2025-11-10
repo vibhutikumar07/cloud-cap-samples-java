@@ -3,7 +3,7 @@ using {sap.attachments.Attachments, sap.attachments.StatusCode} from`com.sap.cds
 using { sap.common.CodeList } from '@sap/cds/common';
 
 extend entity my.Books with {
-    attachments : Composition of many Attachments @SDM.Attachments:{maxCount: 4, maxCountError:'Only 4 attachments allowed.'};
+    attachments : Composition of many Attachments @SDM.Attachments:{maxCount: 1, maxCountError:'Only 1 attachment allowed.'};
     references  : Composition of many Attachments @SDM.Attachments:{maxCount: 5, maxCountError:'Only 5 attachments allowed.'};
     footnotes   : Composition of many Attachments;
 }
