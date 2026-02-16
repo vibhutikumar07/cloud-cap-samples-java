@@ -11,7 +11,7 @@ using {sap.common as common} from '@sap/cds/common';
 //
 annotate my.Books with
 @(
-    Common.SemanticKey : [title],
+    Common.SemanticKey : [ID],
     UI : {
         Identification : [{Value : title}],
         SelectionFields : [
@@ -792,7 +792,8 @@ annotate my.Pages.footnotes with @UI: {
 annotate my.Books with {
     ID
     @title : '{i18n>ID}'
-    @UI.HiddenFilter;
+    @UI.HiddenFilter
+    @Common.Text : title;
     title
     @title : '{i18n>Title}';
     genre
@@ -814,6 +815,24 @@ annotate my.Books with {
     descr
     @title : '{i18n>Description}'
     @UI.MultiLineText;
+}
+
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	Chapters Entity
+//
+annotate my.Chapters with @Common.SemanticKey : [ID] {
+    ID @Common.Text : title;
+}
+
+
+////////////////////////////////////////////////////////////////////////////
+//
+//	Pages Entity
+//
+annotate my.Pages with @Common.SemanticKey : [ID] {
+    ID @Common.Text : title;
 }
 
 

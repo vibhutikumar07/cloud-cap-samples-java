@@ -173,6 +173,14 @@ annotate AdminService.Books.footnotes with {
 }
 
 // Chapters annotations
+annotate AdminService.Chapters with @(
+    title : '{i18n>Chapter}',
+    Common.SemanticKey : [ID]
+) {
+    ID @Common.Text : title;
+};
+
+// Chapters annotations
 annotate AdminService.Chapters with @title : '{i18n>Chapter}';
 
 annotate AdminService.Books.chapters with @(
@@ -286,6 +294,14 @@ annotate AdminService.Chapters with @(
 );
 
 //////////
+
+// Pages annotations
+annotate AdminService.Pages with @(
+    title : '{i18n>Page}',
+    Common.SemanticKey : [ID]
+) {
+    ID @Common.Text : title;
+};
 
 // Pages annotations
 annotate AdminService.Pages with @title : '{i18n>Page}';
