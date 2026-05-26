@@ -51,6 +51,9 @@ service AdminService @(requires: [
     action changelog() returns String;
     action downloadSelectedAttachments(ids: String) returns String;
   }
+  annotate AdminService.Books.attachments with @(
+    Capabilities: {InsertRestrictions: {Insertable: up_.isAttachmentsUploadable}}
+  );
 
   entity Books.references as projection on my.Books.references
   actions {
@@ -82,6 +85,9 @@ service AdminService @(requires: [
     action changelog() returns String;
     action downloadSelectedAttachments(ids: String) returns String;
   }
+  annotate AdminService.Books.references with @(
+    Capabilities: {InsertRestrictions: {Insertable: up_.isReferencesUploadable}}
+  );
 
   entity Books.footnotes as projection on my.Books.footnotes
   actions {
@@ -269,6 +275,19 @@ service AdminService @(requires: [
     action changelog() returns String;
     action downloadSelectedAttachments(ids: String) returns String;
   };
+
+  // Side effects on parent entities: structural changes (add/delete) on attachment
+  // navigation collections trigger a re-read of the uploadable flag on the parent.
+  annotate AdminService.Books with @(
+    Common.SideEffects #sdmAttachmentsUploadable: {
+      SourceEntities: ['attachments'],
+      TargetEntities: ['']
+    },
+    Common.SideEffects #sdmReferencesUploadable: {
+      SourceEntities: ['references'],
+      TargetEntities: ['']
+    }
+  );
 
   // Pages footnotes projection
   entity Pages.footnotes as projection on my.Pages.footnotes
