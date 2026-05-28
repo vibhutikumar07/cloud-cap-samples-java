@@ -24,6 +24,8 @@ entity Books : cuid, managed {
     isReviewable : TechnicalBooleanFlag not null default true;
     cHapters : Composition of many Chapters on cHapters.book = $self;
     pages : Composition of many Pages on pages.book = $self;
+    virtual isAttachmentsUploadable : Boolean;
+    virtual isReferencesUploadable  : Boolean;
 }
 
 entity Authors : cuid, managed {
@@ -64,6 +66,7 @@ entity Notebooks : managed, cuid {
   price             : Decimal;
   currency          : Currency;
   image             : LargeBinary @Core.MediaType: 'image/png';
+  virtual isAttachmentsUploadable : Boolean;
 }
 
 entity Writers : managed, cuid {
